@@ -3,7 +3,7 @@ import UserEditor from './UserEditor';
 
 const EditUser = () => {
   return (
-    <UserEditor mode="create" title="Edit User" activeFields={["id", "name", "age"]} />
+    <UserEditor mode="edit" title="Edit User" activeFields={["id", "name", "age"]} />
   )
 }
 

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User';
 
-const users: User[] = [
+let users: User[] = [
   { id: 1, name: 'Alice', age: 25 },
   { id: 2, name: 'Bob', age: 30 },
   { id: 3, name: 'Charlie', age: 35 },
@@ -47,9 +47,10 @@ export function updateUser(req: Request, res: Response): any {
 }
 
 export function deleteUser(req: Request, res: Response): any {
+  console.log('Deleting user with ID:', req.params.id);
   const index = users.findIndex(u => u.id === Number(req.params.id));
   if (index === -1) return res.status(404).json({ message: 'User not found' });
 
-  users.splice(index, 1);
+  users = [...users.slice(0, index), ...users.slice(index + 1)];
   res.status(204).send();
 }

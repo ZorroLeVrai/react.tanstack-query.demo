@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { sendRequest } from "../helpers/requestHelpers";
 import type { User } from "../types";
+import { getAllUsers } from "../requests/apiRequests";
 
-async function getAllUsers(): Promise<User[]> {
-  return await sendRequest("http://localhost:3000/api/users");
-}
+
 
 function Users() {
   const {data: users, isLoading} = useQuery<User[]>({
