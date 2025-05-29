@@ -13,8 +13,8 @@ export async function createUser(userData: UserWithoutId): Promise<User> {
   return await sendRequest<UserWithoutId, User>("http://localhost:3000/api/users", "POST", userData);
 }
 
-export async function updateUser(id: number, userData: UserWithoutId): Promise<User> {
-  return await sendRequest<UserWithoutId, User>(`http://localhost:3000/api/users/${id}`, "PUT", userData);
+export async function updateUser(userData: User): Promise<User> {
+  return await sendRequest<UserWithoutId, User>(`http://localhost:3000/api/users/${userData.id}`, "PUT", userData);
 }
 
 export async function deleteUser(id: number): Promise<void> {
