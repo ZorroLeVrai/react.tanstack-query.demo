@@ -1,13 +1,13 @@
 import Users from "./components/Users";
 import './App.css';
-import WriteUser from "./components/WriteUser";
+import OptionTab from "./components/OptionTab";
 
 function App() {
   return (
     <>
-      <h1>Users handling</h1>
+      <h1 className="text-center">Users handling</h1>
       <div>
-        <WriteUser/>
+        <OptionTab/>
       </div>
       <div>
         <Users/>

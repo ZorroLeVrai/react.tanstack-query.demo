@@ -1,7 +1,8 @@
 import { useActionState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { sendRequest } from "../helpers/requestHelpers";
-import type { UserWithoutId } from "../commonTypes";
+import type { UserWithoutId } from "../types";
+import styles from "./UserEditor.module.css";
 
 interface FormState {
   name: string;
@@ -9,7 +10,16 @@ interface FormState {
   error: string | null;
 }
 
-const WriteUser = () => {
+type EditMode = "create" | "edit" | "delete";
+type FormField = "id" | "name" | "age";
+
+interface UserEditorProps {
+  mode : EditMode;
+  title: string;
+  activeFields: FormField[];
+}
+
+const UserEditor = ({mode, title, activeFields}: UserEditorProps) => {
   const [formState, handleSubmit, isPending] = useActionState<FormState, FormData>(actionReducer, {
     name: "",
     age: 0,
@@ -49,24 +59,46 @@ const WriteUser = () => {
     }
   }
 
+  function getFieldClass(fieldName: FormField): string {
+    const fieldStyles = [styles.field];
+    if (activeFields.includes(fieldName)) {
+      fieldStyles.push(styles.active);
+    }
+
+    return fieldStyles.join(" ");
+  }
+
   return (
     <>
-      <h1>Update User</h1>
+      <div className="text-center">
+        <span className="text-double-size">{title}</span>
+      </div>
       {formState.error && <p style={{ color: "red" }}>{formState.error}</p>}
       {isPending && <p>Submitting...</p>}
-      <form action={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" required />
+      <form className="text-center" action={handleSubmit}>
+        <div className={styles.fieldGrid}>
+          <div className={getFieldClass("id")}>
+            <label htmlFor="id">ID:</label>
+            <input type="number" id="id" name="id" min={1}/>
+          </div>
+    
+          <div className={getFieldClass("name")}>
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div className={getFieldClass("age")}>
+            <label htmlFor="age">Age:</label>
+            <input type="number" id="age" name="age" required />
+          </div>
         </div>
         <div>
-          <label htmlFor="age">Age:</label>
-          <input type="number" id="age" name="age" required />
+          <button>Reset</button>
+          <button type="submit">{title}</button>
         </div>
-        <button type="submit">Add User</button>
       </form>
     </>
   )
 }
 
-export default WriteUser;
+export default UserEditor;

@@ -1,0 +1,25 @@
+.field {
+  display: none;
+  flex-direction: row;
+  margin: 0.5rem 0;
+}
+
+.field.active {
+  display: flex;
+}
+
+.field label {
+  flex: 0 1 5rem;
+  font-weight: bold;
+}
+
+.field input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.active {
+  display: block;
+}

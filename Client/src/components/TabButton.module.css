@@ -1,0 +1,8 @@
+/* Style the buttons that are used to open the tab content */
+button.default {
+  background-color: #aaa;
+}
+
+button.active {
+  border: 3px solid darkblue;
+}
